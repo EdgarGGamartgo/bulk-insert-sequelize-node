@@ -1,7 +1,8 @@
 import { BuildOptions, Model } from "sequelize";
 
 export interface ProductAttrs {
-  id: number;
+  id?: number;
+  name: string;
 }
 
 export interface ProductModel extends Model<ProductAttrs>, ProductAttrs { }

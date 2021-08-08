@@ -2,16 +2,16 @@ import express, { Request, Response } from 'express'
 import { validateRequest } from '@oregtickets/common'
 import { ErrorHandler } from './../handlers/ErrorHandler'
 import { bulkInsertProductsByBatches } from './../services/ProductService'
+import { csvToDb } from './../utils/csvToDb';
 
 const router = express.Router()
 
-router.get('/',
+router.post('/',
   async (req: Request, res: Response) => {
-    const { page, size }: any = req.query;
     const { method } = req
     try {
-      const products = await bulkInsertProductsByBatches(page, size)
-      res.status(200).send(products);
+      await csvToDb('testData.csv', bulkInsertProductsByBatches)
+      return res.status(201).send();
     } catch (e) {
       ErrorHandler(req.params, method, e, 'Cant insert products')
     }

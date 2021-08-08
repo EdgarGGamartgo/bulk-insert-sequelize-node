@@ -6,14 +6,14 @@ export function ProductFactory(sequelize: Sequelize): ProductStatic {
   return <ProductStatic>sequelize.define("product", {
     id: {
       type: DataTypes.INTEGER,
-      autoIncrement: false,
+      autoIncrement: true,
       primaryKey: true,
     },
-    // name: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   unique: true,
-    // },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false,
+    },
   }, {
     timestamps: false
   });

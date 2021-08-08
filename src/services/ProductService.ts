@@ -1,6 +1,10 @@
 import { Product } from './../models/Product'
 
-export const bulkInsertProductsByBatches = async (page: number, size: number) => {
-  //const response = await Product.findAndCountAll()
-  //return getPagingData(response, page, limit);
+export const bulkInsertProductsByBatches = async (products: { name: string }[], inserterCb: () => void) => {
+  try {
+    await Product.bulkCreate(products);
+    inserterCb();
+  } catch (e) {
+    throw new Error(`Error from bulkInsertProductsByBatches service ${e}`);
+  }
 }
